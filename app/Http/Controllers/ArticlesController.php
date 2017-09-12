@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Article;
+use Carbon\Carbon;
+use App\Http\Requests\CreateArticleRequest;
 
 class ArticlesController extends Controller
 {
@@ -18,7 +20,7 @@ class ArticlesController extends Controller
     public function index()
     {
         //
-        $articles =Article::all();
+        $articles =Article::latest()->published()->get();
 
         return view('articles.index',compact('articles'));
     }
@@ -31,6 +33,8 @@ class ArticlesController extends Controller
     public function create()
     {
         //
+
+        return view('articles.create');
     }
 
     /**
@@ -39,9 +43,13 @@ class ArticlesController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CreateArticleRequest $request)
     {
         //
+
+        Article::create($request->all());
+        return redirect('articles');
+
     }
 
     /**
@@ -53,7 +61,9 @@ class ArticlesController extends Controller
     public function show($id)
     {
         //
+
         $article = Article::findorfail($id);
+        dd($article->published_at->diffForHumans());
 
         if(is_null($article)){
 
@@ -71,6 +81,8 @@ class ArticlesController extends Controller
     public function edit($id)
     {
         //
+        $article = Article::findorfail($id);
+        return view('articles.edit',compact('article'));
     }
 
     /**
@@ -80,9 +92,13 @@ class ArticlesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(CreateArticleRequest $request, $id)
     {
         //
+        $article = Article::findorfail($id);
+        $article->update($request->all());
+
+        return redirect('/articles');
     }
 
     /**

@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
+use Gate;
 class PostsController extends Controller
 {
     /**
@@ -53,6 +54,9 @@ class PostsController extends Controller
     {
         //
 		$post= \App\Post::findOrFail($id);
+		
+		$this->authorize('show-post',$post);
+
 		return $post->body;
     }
 

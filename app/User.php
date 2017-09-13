@@ -40,4 +40,10 @@ class User extends Model implements AuthenticatableContract,
 	public function articles(){
 		return $this->hasMany('App\Article');
 	}
+	
+	public function owns($post){
+	
+	return $this->id==$post->user_id;
+	}
+	
 }

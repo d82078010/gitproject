@@ -6,11 +6,8 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
-use App\Article;
-use Carbon\Carbon;
-use App\Http\Requests\CreateArticleRequest;
 
-class ArticlesController extends Controller
+class PostsController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -21,10 +18,7 @@ class ArticlesController extends Controller
     {
         //
 		
-	//	dd(\Auth::user());
-        $articles =Article::latest()->published()->get();
-
-        return view('articles.index',compact('articles'));
+		return 1;
     }
 
     /**
@@ -35,8 +29,6 @@ class ArticlesController extends Controller
     public function create()
     {
         //
-
-        return view('articles.create');
     }
 
     /**
@@ -45,15 +37,10 @@ class ArticlesController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(CreateArticleRequest $request)
+    public function store(Request $request)
     {
         //
-	
-        Article::create(
-		array_merge(['user_id'=>\Auth::user()->id,],$request->all())
-		);
-        return redirect('articles');
-
+		
     }
 
     /**
@@ -65,15 +52,8 @@ class ArticlesController extends Controller
     public function show($id)
     {
         //
-
-        $article = Article::findorfail($id);
-        dd($article->published_at->diffForHumans());
-
-        if(is_null($article)){
-
-          abort(404);
-        }
-        return view('articles.show',compact('article'));
+		$post= \App\Post::findOrFail($id);
+		return $post->body;
     }
 
     /**
@@ -85,8 +65,6 @@ class ArticlesController extends Controller
     public function edit($id)
     {
         //
-        $article = Article::findorfail($id);
-        return view('articles.edit',compact('article'));
     }
 
     /**
@@ -96,13 +74,9 @@ class ArticlesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(CreateArticleRequest $request, $id)
+    public function update(Request $request, $id)
     {
         //
-        $article = Article::findorfail($id);
-        $article->update($request->all());
-
-        return redirect('/articles');
     }
 
     /**

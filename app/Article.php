@@ -8,7 +8,7 @@ use Carbon\Carbon;
 class Article extends Model
 {
     //CURD
-protected $fillable=['title','content','published_at'];
+protected $fillable=['title','content','published_at','user_id'];
 protected $dates = ['published_at'];
 
 public function setPublishedAtAttribute($date){
@@ -20,5 +20,12 @@ public function scopePublished($query){
 
   $query->where('published_at','<=',Carbon::now());
 }
+
+
+public function user(){
+	
+return $this->belongsTo('App\User');
+}
+
 
 }

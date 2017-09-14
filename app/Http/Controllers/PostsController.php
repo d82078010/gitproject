@@ -55,7 +55,11 @@ class PostsController extends Controller
         //
 		$post= \App\Post::findOrFail($id);
 		
-		$this->authorize('show-post',$post);
+		//$this->authorize('show-post',$post);
+		\Auth::loginUsingId(1);
+	if(Gate::denies('update',$post)){
+		abort(403,'Sorry');
+	}
 
 		return $post->body;
     }

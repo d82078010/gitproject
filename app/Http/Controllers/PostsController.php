@@ -53,15 +53,16 @@ class PostsController extends Controller
     public function show($id)
     {
         //
+	//	\Auth::loginUsingId(15);
 		$post= \App\Post::findOrFail($id);
 		
 		//$this->authorize('show-post',$post);
-		\Auth::loginUsingId(1);
-	if(Gate::denies('update',$post)){
+	//	\Auth::loginUsingId(15);
+	/*if(Gate::denies('update',$post)){
 		abort(403,'Sorry');
-	}
+	}*/
 
-		return $post->body;
+		return view('posts.show',compact('post'));
     }
 
     /**

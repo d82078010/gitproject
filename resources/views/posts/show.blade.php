@@ -5,9 +5,8 @@
 		<title>laravel</title>
 	</head>
 	<body>
-		<h1>{{$post->title}}</h1>
-		
-			@can('update',$post)
+		<h1>{{$post->title}}</h1>	
+			@can('edit_form')
 		<a href='#'>编辑</a>
 	@endcan
 	

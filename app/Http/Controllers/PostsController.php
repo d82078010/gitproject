@@ -53,10 +53,10 @@ class PostsController extends Controller
     public function show($id)
     {
         //
-	//	\Auth::loginUsingId(15);
+		\Auth::loginUsingId(15);
 		$post= \App\Post::findOrFail($id);
 		
-		//$this->authorize('show-post',$post);
+		//$this->authorize('edit_form',$post);
 	//	\Auth::loginUsingId(15);
 	/*if(Gate::denies('update',$post)){
 		abort(403,'Sorry');

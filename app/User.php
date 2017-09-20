@@ -46,4 +46,18 @@ class User extends Model implements AuthenticatableContract,
 	return $this->id==$post->user_id;
 	}
 	
+	public function roles(){
+		return $this->belongsToMany(Role::class);
+		
+	}
+	
+	public function hasRole($role){
+		//dd($role);
+		if(is_string($role)){
+			return $this->roles->contains('name',$role);
+		}
+	
+		return !! $role->intersect($this->roles)->count();
+	}
+	
 }

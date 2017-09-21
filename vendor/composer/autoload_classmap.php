@@ -8,10 +8,11 @@ $baseDir = dirname($vendorDir);
 return array(
     'AddIntroColumnToArticles' => $baseDir . '/database/migrations/2017_09_11_062058_add_intro_column_to_articles.php',
     'AddUserIdColumnToArticles' => $baseDir . '/database/migrations/2017_09_13_033716_add_user_id_column_to_articles.php',
-    'CreatRolesTable' => $baseDir . '/database/migrations/2017_09_19_152033_creat_roles_table.php',
     'CreateArticlesTable' => $baseDir . '/database/migrations/2017_09_11_060935_create_articles_table.php',
+    'CreateLessonsTable' => $baseDir . '/database/migrations/2017_09_21_085656_create_lessons_table.php',
     'CreatePasswordResetsTable' => $baseDir . '/database/migrations/2014_10_12_100000_create_password_resets_table.php',
     'CreatePostsTable' => $baseDir . '/database/migrations/2017_09_13_093325_create_posts_table.php',
+    'CreateRolesTable' => $baseDir . '/database/migrations/2017_09_19_152033_create_roles_table.php',
     'CreateUsersTable' => $baseDir . '/database/migrations/2014_10_12_000000_create_users_table.php',
     'DatabaseSeeder' => $baseDir . '/database/seeds/DatabaseSeeder.php',
     'File_Iterator' => $vendorDir . '/phpunit/php-file-iterator/src/Iterator.php',

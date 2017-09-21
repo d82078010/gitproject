@@ -29,3 +29,22 @@ $factory->define(App\Post::class, function (Faker\Generator $faker) {
        
     ];
 });
+
+$factory->define(App\Lesson::class, function (Faker\Generator $faker) {
+    return [
+       
+	   'free'=>$faker->boolean(),
+	   'title' => $faker->sentence,
+        'body' => $faker->paragraph,
+       
+    ];
+});
+
+
+
+
+
+
+
+
+

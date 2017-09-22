@@ -34,3 +34,12 @@ Route::get('/auth/register','Auth\AuthController@getRegister');
 Route::post('/auth/register','Auth\AuthController@postRegister');
 
 Route::get('/auth/logout','Auth\AuthController@getLogout');
+
+Route::group([
+'prefix'=>'api/v1',
+],function(){
+	Route::resource('Lessons','LessonsController');
+});
+
+
+

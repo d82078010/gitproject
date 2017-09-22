@@ -311,6 +311,8 @@ class ComposerStaticInit5b139b148fba7d894d806d135649d645
     public static $classMap = array (
         'AddIntroColumnToArticles' => __DIR__ . '/../..' . '/database/migrations/2017_09_11_062058_add_intro_column_to_articles.php',
         'AddUserIdColumnToArticles' => __DIR__ . '/../..' . '/database/migrations/2017_09_13_033716_add_user_id_column_to_articles.php',
+        'App\\Transformer\\LessonTransformer' => __DIR__ . '/../..' . '/app/Tranformer/LessonTransformer.php',
+        'App\\Transformer\\Transformer' => __DIR__ . '/../..' . '/app/Tranformer/Transformer.php',
         'CreateArticlesTable' => __DIR__ . '/../..' . '/database/migrations/2017_09_11_060935_create_articles_table.php',
         'CreateLessonsTable' => __DIR__ . '/../..' . '/database/migrations/2017_09_21_085656_create_lessons_table.php',
         'CreatePasswordResetsTable' => __DIR__ . '/../..' . '/database/migrations/2014_10_12_100000_create_password_resets_table.php',

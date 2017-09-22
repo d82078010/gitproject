@@ -6,9 +6,19 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
+use App\Lesson;
+use App\Transformer\LessonTransformer;
 
 class LessonsController extends Controller
 {
+	
+	
+	protected $lessonTransformer;
+	
+	public function __construct(LessonTransformer $lessonTransformer){
+		$this->lessonTransformer =$lessonTransformer;
+	}
+	
     /**
      * Display a listing of the resource.
      *
@@ -16,7 +26,14 @@ class LessonsController extends Controller
      */
     public function index()
     {
-        //
+        //all(); ：最后
+		//没有提示信息
+		//直接展示我们的数据结构
+		//没有错误信息
+		
+		$lessons= Lesson::all();
+		return \Response::json(['status'=>'success','status_code'=>200,'data'=>$this->lessonTransformer->transformCollection($lessons->toArray())]); //more friendly
+	//	return Lesson::all();	//bad
     }
 
     /**
@@ -49,6 +66,13 @@ class LessonsController extends Controller
     public function show($id)
     {
         //
+		$lesson = Lesson::find($id);
+		
+		if(!$lesson){			
+			return \Response::json(['status'=>'failed','status_code'=>404,'message'=>'Lesson not found']);
+		}
+		return \Response::json(['status'=>'success','status_code'=>200,'data'=>$this->lessonTransformer->transform($lesson)]);
+		//return Lesson::findorfail($id);
     }
 
     /**
@@ -84,4 +108,22 @@ class LessonsController extends Controller
     {
         //
     }
+	
+	private function transformCollection($lessons){
+		return array_map([$this,'transform'],$lessons->toArray());
+		
+	}
+	
+	private function transform($lesson){
+		
+		
+			
+			return [
+				'title' => $lesson['title'],
+				'content' => $lesson['body'],
+				'is_free' => (boolean)$lesson['free'],
+			];
+		
+	}
+	
 }

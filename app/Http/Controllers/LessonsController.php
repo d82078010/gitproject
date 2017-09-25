@@ -5,11 +5,11 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
-use App\Http\Controllers\Controller;
+use App\Http\Controllers\ApiController;
 use App\Lesson;
 use App\Transformer\LessonTransformer;
 
-class LessonsController extends Controller
+class LessonsController extends ApiController
 {
 	
 	
@@ -17,6 +17,9 @@ class LessonsController extends Controller
 	
 	public function __construct(LessonTransformer $lessonTransformer){
 		$this->lessonTransformer =$lessonTransformer;
+		
+		$this->middleware('auth.basic');
+		
 	}
 	
     /**
@@ -32,7 +35,7 @@ class LessonsController extends Controller
 		//没有错误信息
 		
 		$lessons= Lesson::all();
-		return \Response::json(['status'=>'success','status_code'=>200,'data'=>$this->lessonTransformer->transformCollection($lessons->toArray())]); //more friendly
+		return $this->responseSuccess($this->lessonTransformer->transformCollection($lessons->toArray()));	 //more friendly
 	//	return Lesson::all();	//bad
     }
 
@@ -55,6 +58,11 @@ class LessonsController extends Controller
     public function store(Request $request)
     {
         //
+		if(!$request->get('title') | !$request->get('body')){
+			return $this->setStatusCode(422)->responseError('Validate Fails');
+		}
+		Lesson::create($request->all());
+		return $this->setStatusCode(201)->responseCreateSuccess();	
     }
 
     /**
@@ -69,9 +77,9 @@ class LessonsController extends Controller
 		$lesson = Lesson::find($id);
 		
 		if(!$lesson){			
-			return \Response::json(['status'=>'failed','status_code'=>404,'message'=>'Lesson not found']);
+			return $this->responseNotFound();
 		}
-		return \Response::json(['status'=>'success','status_code'=>200,'data'=>$this->lessonTransformer->transform($lesson)]);
+		return $this->responseSuccess($this->lessonTransformer->transform($lesson));
 		//return Lesson::findorfail($id);
     }
 
@@ -109,7 +117,7 @@ class LessonsController extends Controller
         //
     }
 	
-	private function transformCollection($lessons){
+	/*private function transformCollection($lessons){
 		return array_map([$this,'transform'],$lessons->toArray());
 		
 	}
@@ -117,7 +125,6 @@ class LessonsController extends Controller
 	private function transform($lesson){
 		
 		
-			
 			return [
 				'title' => $lesson['title'],
 				'content' => $lesson['body'],
@@ -125,5 +132,5 @@ class LessonsController extends Controller
 			];
 		
 	}
-	
+	*/
 }

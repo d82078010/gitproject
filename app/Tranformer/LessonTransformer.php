@@ -2,7 +2,6 @@
 
 namespace App\Transformer;
 
-
 class LessonTransformer extends Transformer{
 	
 		public function transform($lesson){

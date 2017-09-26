@@ -35,11 +35,25 @@ Route::post('/auth/register','Auth\AuthController@postRegister');
 
 Route::get('/auth/logout','Auth\AuthController@getLogout');
 
-Route::group([
-'prefix'=>'api/v1',
-],function(){
-	Route::resource('Lessons','LessonsController');
+/*
+	Route::group([
+	'prefix'=>'api/v1',
+	],function(){
+		Route::resource('Lessons','LessonsController');
+	});
+*/
+
+$api = app('Dingo\Api\Routing\Router');
+$api->version('v1',function($api){
+	$api->group(['namespace'=>'App\Api\Controllers'],function($api){
+		
+		$api->group(['middleware' => 'jwt.auth'],function($api){
+				$api->get('lessons','LessonsController@index');
+		
+		});
+		
+		$api->post('user/login','AuthController@authenticate');
+	
+	});
+	
 });
-
-
-

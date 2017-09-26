@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\ApiController;
 use App\Lesson;
+
 use App\Transformer\LessonTransformer;
 
 class LessonsController extends ApiController

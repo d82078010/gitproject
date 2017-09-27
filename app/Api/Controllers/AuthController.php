@@ -6,13 +6,13 @@ use App\Lesson;
 use Illuminate\Http\Request;
 use JWTAuth;
 use Tymon\JWTAuth\Exceptions\JWTException;
-
+use Request as Re;
 class AuthController extends BaseController{
 	
 	public function index(){
 	
-			$version = Request::header('api-version');
-			
+			$version = Re::header('api-version');
+			echo $version;
 			/*
 			$lessons = Lesson::all();			
 			return $this->collection($lessons,new LessonTransformer());

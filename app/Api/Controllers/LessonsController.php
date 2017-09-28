@@ -9,14 +9,23 @@ use Request;
 class LessonsController extends BaseController{
 	
 	public function index(){
-			dd(1);
-			$version = Request::header('api-version');
-			echo $version;
-			/*
+					
 			$lessons = Lesson::all();			
 			return $this->collection($lessons,new LessonTransformer());
-			
-			*/
+						
 	}
+	
+	public function show($id){
+		
+			$lesson = Lesson::find($id);
+			if(!$lesson){
+				return $this->response->errorNotFound('Lesson not found');
+
+			}
+			
+			return $this->item($lesson,new LessonTransformer());
+	}
+	
+	
 	
 }

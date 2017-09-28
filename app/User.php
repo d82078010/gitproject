@@ -60,4 +60,8 @@ class User extends Model implements AuthenticatableContract,
 		return !! $role->intersect($this->roles)->count();
 	}
 	
+	public function getAuthPassword(){
+		return $this->u_password;
+	}
+	
 }

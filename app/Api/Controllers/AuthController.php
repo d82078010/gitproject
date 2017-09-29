@@ -76,7 +76,7 @@ class AuthController extends BaseController{
     //    $credentials = $request->only('email', 'password');
 
 		$credentials = [
-				'email' => $request->get('email'),
+				'u_email' => $request->get('email'),
 				'password' => $request->get('u_password'),
 		];
 		

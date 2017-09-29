@@ -154,6 +154,13 @@ return [
 		 */
 		Dingo\Api\Provider\LaravelServiceProvider::class,
 		Tymon\JWTAuth\Providers\JWTAuthServiceProvider::class,
+		
+		/*
+		 *  OAuth ~2.0
+		 */
+		 LucaDegasperi\OAuth2Server\Storage\FluentStorageServiceProvider::class,
+		 LucaDegasperi\OAuth2Server\OAuth2ServerServiceProvider::class,
+		 
 
     ],
 
@@ -206,7 +213,9 @@ return [
         'Form'      => Illuminate\Html\FormFacade::class,
 		
 		'JWTAuth'   => Tymon\JWTAuth\Facades\JWTAuth::class,
-		'JWTFactory'   => Tymon\JWTAuth\Facades\JWTFactory::class,
+		'JWTFactory'=> Tymon\JWTAuth\Facades\JWTFactory::class,
+		
+		'Authorizer'=> LucaDegasperi\OAuth2Server\Facades\Authorizer::class,
     ],
 
 ];
